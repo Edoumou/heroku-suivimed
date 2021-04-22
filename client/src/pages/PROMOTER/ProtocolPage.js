@@ -41,8 +41,8 @@ import "../../App.css";
     let encryptedData = EncryptData(this.state.base64data, 16, 'fpbyr4386v8hpxdruppijkt3v6wayxmi');
 
     let cid = await SendToIPFS(encryptedData);
-    this.setState({ protocoleCID: cid });
-    console.log("CID FROM CODE =", this.state.protocoleCID);
+    this.setState({ protocolCID: cid });
+    console.log("CID FROM CODE =", this.state.protocolCID);
 
 
     // send cids to ethereum Blockchain  
@@ -57,12 +57,12 @@ import "../../App.css";
     console.log(`The adress ${addr} has registered the protocol with id ${id}`);
 
     // Fetch cids from blockchain
-    let cids = await this.props.contract.methods.getProtocolCIDs(6).call({ from: this.context });
+    let cids = await this.props.contract.methods.getProtocolCIDs(id).call({ from: this.context });
     console.log("cids from Ethereum =", cids);
 
     
     // Fetch data from ipfs
-    let data = FetchFromIPFS(this.state.protocoleCID, 'fpbyr4386v8hpxdruppijkt3v6wayxmi');    
+    let data = FetchFromIPFS(this.state.protocolCID, 'fpbyr4386v8hpxdruppijkt3v6wayxmi');    
 
     this.setState({ data: await data });
 
@@ -89,13 +89,13 @@ import "../../App.css";
               Protocol Page
             </div>
 
-            <h2 className="head1">Send the protocole to autorithies for validation</h2>
+            <h2 className="head1">Send the protocol to autorithies for validation</h2>
 
             <div className = "protocol-btn">
               <ReactFileReader fileTypes={[".csv",".pdf",".zip"]} base64={true} handleFiles = {this.handleFiles}>
                 
                 <button className="ui brown button">
-                  Select the protocole file
+                  Select the protocol file
                 </button>
               </ReactFileReader>
             </div>
@@ -106,7 +106,7 @@ import "../../App.css";
               <div className="send-protocol">
                 <div className="ui warning message protocol-warning">
                   <div className="header">
-                    Your are about to send the protocole in file
+                    Your are about to send the protocol in file
                     {this.state.filename} for validation.
                   </div>
                   Click the button bellow to send.
